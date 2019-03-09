@@ -1,0 +1,42 @@
+@font-face {
+    font-family: 'Kanit-Regular';
+    src: url('../source/Kanit/Kanit-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Prompt-Bold';
+    src: url('../source/Prompt/Prompt-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Prompt-Regular';
+    src: url('../source/Prompt/Prompt-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Prompt-SemiBold';
+    src: url('../source/Prompt/Prompt-SemiBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Kanit-SemiBold';
+    src: url('../source/Kanit/Kanit-SemiBold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Kanit-Regular';
+    src: url('../source/Kanit/Kanit-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Kanit-Bold';
+    src: url('../source/Kanit/Kanit-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
