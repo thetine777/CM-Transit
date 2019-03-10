@@ -7,7 +7,8 @@ import PagesHeader from "components/Header/PagesHeader.jsx";
 // dinamically create pages routes
 import pagesRoutes from "routes/pages.jsx";
 
-import bgImage from "assets/img/full-screen-image-3.jpg";
+// import bgImage from "assets/img/full-screen-image-3.jpg";
+const bgColor = { background: '#808080'};
 
 class Pages extends Component {
   getPageClass() {
@@ -44,7 +45,7 @@ class Pages extends Component {
           <div
             className={"full-page" + this.getPageClass()}
             data-color="black"
-            data-image={bgImage}
+            // data-image={bgImage}
           >
             <div className="content">
               <Switch>
@@ -63,7 +64,7 @@ class Pages extends Component {
             <Footer transparent />
             <div
               className="full-page-background"
-              style={{ backgroundImage: "url(" + bgImage + ")" }}
+              style={bgColor}
             />
           </div>
         </div>

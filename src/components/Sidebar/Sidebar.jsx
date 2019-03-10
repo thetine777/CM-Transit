@@ -16,7 +16,8 @@ import logo from "logo.svg";
 
 import dashboardRoutes from "routes/dashboard.jsx";
 
-const bgImage = { backgroundImage: "url(" + image + ")" };
+// const bgImage = { backgroundImage: "url(" + image + ")" };
+const bgColor = { background: '#808080'};
 
 var ps;
 
@@ -69,7 +70,7 @@ class Sidebar extends Component {
   render() {
     return (
       <div className="sidebar" data-color="black" data-image={image}>
-        <div className="sidebar-background" style={bgImage} />
+        <div className="sidebar-background" style={bgColor} />
         <div className="logo">
           <a
             href="https://www.creative-tim.com"
