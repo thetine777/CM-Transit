@@ -1,14 +1,24 @@
 import React, { Component } from "react";
 import { Grid, Col, Row } from "react-bootstrap";
 import Select from "react-select";
-import { selectOptions } from "variables/Variables.jsx";
 import {
   GoogleMap
 } from 'components'
 
 
-import Card from "components/Card/Card.jsx";
+import Card from "components/Card/Card.jsx"
 
+var selectOptions1 = [
+  { value: "b1", label: "B1" },
+  { value: "b2", label: "B2" },
+  { value: "clearstation", label: "Clear Station" },
+];
+var selectOptions2 = [
+  { value: "bus", label: "รถบัส" },
+  { value: "redcar", label: "รถแดง" },
+  { value: "tuktuk", label: "รถตุ๊กตุ๊ก" },
+  { value: "all", label: "รถทั้งหมด" },
+];
 class BusMap extends Component {
   constructor(props) {
     super(props);
@@ -31,29 +41,29 @@ class BusMap extends Component {
                   // <GoogleMap
                   // />
                   <Row>
-                    <Col md={3}>
+                    <Col md={2}>
                       <Select
                         placeholder="เลือกสถานี"
                         name="station"
                         value={this.state.station}
-                        options={selectOptions}
+                        options={selectOptions1}
                         onChange={value =>
                           this.setState({ station: value })
                         }
                       />
                     </Col>
-                    <Col md={3}>
+                    <Col md={2}>
                       <Select
                         placeholder="เลือกรถ"
                         name="car"
                         value={this.state.car}
-                        options={selectOptions}
+                        options={selectOptions2}
                         onChange={value =>
                           this.setState({ car: value })
                         }
                       />
                     </Col>
-                    <Col className="padding" md={12}>
+                    <Col style={{ paddingTop: '15px' }} md={12}>
                       <GoogleMap />
                     </Col>
                   </Row>

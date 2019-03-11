@@ -10,10 +10,7 @@ import {
 } from "react-bootstrap";
 import Checkbox from "components/CustomCheckbox/CustomCheckbox.jsx";
 import * as firebase from 'firebase'
-import {
-  GoogleMap,
-  ButtonHero
-} from 'components'
+
 // react component used to create charts
 
 // react components used to create a SVG / Vector map
@@ -53,9 +50,15 @@ class FormInputPage extends Component {
     var messageRef = firebase.database().ref('react')
     var key = messageRef.push(dataInfo);
     // console.log(key);
+    this.clearValue
   }
   deleteMessage = (id) => {
     firebase.database().ref().child('react/' + id).remove();
+  }
+  clearValue = () => {
+    this.setState({
+      password: null
+    });
   }
   render() {
     return (

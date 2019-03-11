@@ -16,21 +16,21 @@ class HeaderLinks extends Component {
     return (
       <div>
         <Navbar.Form pullLeft className="navbar-search-form">
-          <FormGroup>
+          {/* <FormGroup>
             <InputGroup>
               <InputGroup.Addon>
                 <i className="fa fa-search" />
               </InputGroup.Addon>
               <FormControl type="text" placeholder="Search..." />
             </InputGroup>
-          </FormGroup>
+          </FormGroup> */}
         </Navbar.Form>
         <Nav pullRight>
-          <NavItem eventKey={3} href="#">
+          {/* <NavItem eventKey={3} href="#">
             <i className="fa fa-line-chart" />
             <p>Stats</p>
-          </NavItem>
-          <NavDropdown
+          </NavItem> */}
+          {/* <NavDropdown
             eventKey={2}
             title={
               <div>
@@ -50,7 +50,7 @@ class HeaderLinks extends Component {
             <MenuItem eventKey={2.4}>Submit to live</MenuItem>
             <MenuItem divider />
             <MenuItem eventKey={2.5}>Another action</MenuItem>
-          </NavDropdown>
+          </NavDropdown> */}
           <NavDropdown
             eventKey={3}
             title={
@@ -87,7 +87,7 @@ class HeaderLinks extends Component {
             id="basic-nav-dropdown-3"
             bsClass="dropdown-with-icons dropdown"
           >
-            <MenuItem eventKey={4.1}>
+            {/* <MenuItem eventKey={4.1}>
               <i className="pe-7s-mail" /> Messages
             </MenuItem>
             <MenuItem eventKey={4.2}>
@@ -99,7 +99,7 @@ class HeaderLinks extends Component {
             <MenuItem divider />
             <MenuItem eventKey={4.4}>
               <i className="pe-7s-lock" /> Lock Screen
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem eventKey={4.5}>
               <NavLink to={"/pages/login-page"} className="nav-link">
                 <div className="text-danger">

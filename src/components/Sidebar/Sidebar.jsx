@@ -17,7 +17,7 @@ import logo from "logo.svg";
 import dashboardRoutes from "routes/dashboard.jsx";
 
 // const bgImage = { backgroundImage: "url(" + image + ")" };
-const bgColor = { background: '#808080'};
+const bgColor = { background: '#444'};
 
 var ps;
 
@@ -73,7 +73,7 @@ class Sidebar extends Component {
         <div className="sidebar-background" style={bgColor} />
         <div className="logo">
           <a
-            href="https://www.creative-tim.com"
+            // href="https://www.creative-tim.com"
             className="simple-text logo-mini"
           >
             <div className="logo-img">
@@ -81,7 +81,7 @@ class Sidebar extends Component {
             </div>
           </a>
           <a
-            href="https://www.creative-tim.com"
+            // href="https://www.creative-tim.com"
             className="simple-text logo-normal"
           >
             CM Transit

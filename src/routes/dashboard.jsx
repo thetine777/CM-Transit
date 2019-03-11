@@ -27,6 +27,7 @@ import RouteandTime from "containers/RouteandTime/RouteandTime.jsx"
 import FormInputPage from "containers/FormInputPage/FormInputPage.jsx"
 import ReportDriver from "containers/ReportDriver/ReportDriver.jsx"
 import BusMap from "containers/BusMap/BusMap.jsx"
+import Contact from "containers/Contact/Contact.jsx"
 
 var pages = [
   { path: "/admin/pages/user-page", name: "User Page", mini: "UP", component: UserPage }
@@ -85,6 +86,13 @@ var dashboardRoutes = [
     name: "Form Input",
     icon: "pe-7s-server",
     component: FormInputPage
+  },
+  {
+    path: "/admin/contact",
+    exact: true,
+    name: "contact us",
+    icon: "pe-7s-call",
+    component: Contact
   },
   {
     path: "/admin/dashboard",

@@ -8,7 +8,7 @@ import PagesHeader from "components/Header/PagesHeader.jsx";
 import pagesRoutes from "routes/pages.jsx";
 
 // import bgImage from "assets/img/full-screen-image-3.jpg";
-const bgColor = { background: '#808080'};
+const bgColor = { background: '#444'};
 
 class Pages extends Component {
   getPageClass() {
