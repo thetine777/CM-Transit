@@ -11,7 +11,8 @@ export class ButtonHero extends React.Component {
             theme_yellow,
             width,
             height,
-            label
+            label,
+            onClick
         } = this.props
         const customClass = cx({
             "theme_standard": theme_standard,
@@ -25,7 +26,7 @@ export class ButtonHero extends React.Component {
                 height={height}
             >
                 <div className={customClass}>
-                    <button className="button_submit">{label}</button>
+                    <button className="button_submit" onClick={onClick}>{label}</button>
                 </div>
             </ButtonHeroStyled>
         )

@@ -93,3 +93,9 @@
         transform: scale(0.75);
     }
 }
+.ReactTable .-pagination .-previous {
+    height: 35px;
+}
+.ReactTable .-pagination .-next {
+    height: 35px;
+}

@@ -28,12 +28,20 @@ import FormInputPage from "containers/FormInputPage/FormInputPage.jsx"
 import ReportDriver from "containers/ReportDriver/ReportDriver.jsx"
 import BusMap from "containers/BusMap/BusMap.jsx"
 import Contact from "containers/Contact/Contact.jsx"
+import CallCenter from "containers/CallCenter/CallCenter.jsx"
 
 var pages = [
   { path: "/admin/pages/user-page", name: "User Page", mini: "UP", component: UserPage }
 ].concat(pagesRoutes);
 
 var dashboardRoutes = [
+  {
+    path: "/admin/callcenter",
+    exact: true,
+    name: "call center",
+    icon: "fa fa-phone",
+    component: CallCenter
+  },
   {
     path: "/admin/driver",
     collapse: true,

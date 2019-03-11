@@ -31,7 +31,7 @@ export class UserCard extends Component {
       <UserCardStyled>
         <div className="card card-user">
           <div className="image">
-            {/* <img src={this.props.bgImage} alt="..." /> */}
+            <img src={this.props.bgImage} alt="..." />
           </div>
           <div className="content">
             <div className="author">

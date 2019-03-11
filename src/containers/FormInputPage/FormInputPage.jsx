@@ -33,7 +33,9 @@ class FormInputPage extends Component {
       const messageArray = Object.entries(messageObj).map(([key, value]) => {
         return {
           id: key,
-          message: value.message
+          name: value.name,
+          receive: value.receive,
+          delivery: value.delivery
         }
       })
       this.setState({
@@ -45,11 +47,13 @@ class FormInputPage extends Component {
     // console.log(this.state.password);
     e.preventDefault();
     var dataInfo = {
-      message: this.state.password
+      name: this.state.name,
+      receive: this.state.receive,
+      delivery: this.state.delivery,
+
     }
-    var messageRef = firebase.database().ref('react')
-    var key = messageRef.push(dataInfo);
-    // console.log(key);
+    firebase.database().ref('react').push(dataInfo);
+
     this.clearValue
   }
   deleteMessage = (id) => {
@@ -57,7 +61,7 @@ class FormInputPage extends Component {
   }
   clearValue = () => {
     this.setState({
-      password: null
+      password: ''
     });
   }
   render() {
@@ -71,12 +75,14 @@ class FormInputPage extends Component {
                 icon="pe-7s-stopwatch"
                 // category="All products that were shipped"
                 content={
-                  this.state.messages.map(message => {
+                  this.state.messages.map(data => {
                     return (
                       <h3>
-                        {message.message}
+                        <p>{data.name}</p>
+                        <p>{data.receive}</p>
+                        <p>{data.delivery}</p>
                         <Button
-                          onClick={() => this.deleteMessage(message.id)}
+                          onClick={() => this.deleteMessage(data.id)}
                           bsStyle="danger"
                           fill
                           wd
@@ -102,10 +108,18 @@ class FormInputPage extends Component {
                         <FormControl placeholder="Enter email" type="email" name="email" ref={el => this.inputEl = el} />
                       </FormGroup> */}
                       <FormGroup>
-                        <ControlLabel>Password</ControlLabel>
-                        <FormControl placeholder="text" type="text" name="password" onChange={e => { this.setState({ password: e.target.value }) }} />
+                        <ControlLabel>name</ControlLabel>
+                        <FormControl placeholder="text" type="text" name="name" onChange={e => { this.setState({ name: e.target.value }) }} />
                       </FormGroup>
                       <FormGroup>
+                        <FormGroup>
+                          <ControlLabel>Receiving Point</ControlLabel>
+                          <FormControl placeholder="text" type="text" name="receive" onChange={e => { this.setState({ receive: e.target.value }) }} />
+                        </FormGroup>
+                        <FormGroup>
+                          <ControlLabel>Deliverly Point</ControlLabel>
+                          <FormControl placeholder="text" type="text" name="delivery" onChange={e => { this.setState({ delivery: e.target.value }) }} />
+                        </FormGroup>
                         <Checkbox
                           isChecked
                           number="1"
