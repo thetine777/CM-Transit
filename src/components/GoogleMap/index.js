@@ -22,7 +22,7 @@ export class GoogleMap extends React.Component {
                 <div className={customClass}>
                     <div style={{ height: '100vh', width: '100%' }}>
                         <GoogleMapReact
-                            // bootstrapURLKeys={{ key: /* YOUR KEY HERE */  }}
+                            bootstrapURLKeys={{ key: 'AIzaSyA0qlncRwkQEXcGbqD5zROU8gYw4TaiDVU' }}
                             defaultCenter={this.props.center}
                             defaultZoom={this.props.zoom}
                         >

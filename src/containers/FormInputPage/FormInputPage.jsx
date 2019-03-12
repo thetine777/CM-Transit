@@ -50,19 +50,30 @@ class FormInputPage extends Component {
       name: this.state.name,
       receive: this.state.receive,
       delivery: this.state.delivery,
-
+      status: 0
     }
+    // console.log(dataInfo)
     firebase.database().ref('react').push(dataInfo);
 
-    this.clearValue
+    this.clearValue();
   }
   deleteMessage = (id) => {
     firebase.database().ref().child('react/' + id).remove();
   }
   clearValue = () => {
-    this.setState({
-      password: ''
-    });
+    this.state.name = '',
+    this.state.receive = '',
+    this.state.delivery = ''
+  }
+  addDriver = (e) => {
+    console.log(e);
+    e.preventDefault();
+    var dataDriver = {
+      name: this.state.name,
+      surname: this.state.surname
+    }
+    console.log(dataDriver);
+    firebase.database().ref('driver').push(dataDriver);
   }
   render() {
     return (
@@ -134,6 +145,30 @@ class FormInputPage extends Component {
                     </Button>
                     </form>
                   </div>
+                }
+              />
+            </Col>
+            <Col md={6}>
+              <Card
+                title="Driver Form"
+                icon="pe-7s-stopwatch"
+                // category="All products that were shipped"
+                content={
+                  <form onSubmit={this.addDriver}>
+                    <FormGroup>
+                      <ControlLabel>Name</ControlLabel>
+                      <FormControl placeholder="text" type="text" name="name" onChange={e => { this.setState({ name: e.target.value }) }} />
+                    </FormGroup><FormGroup>
+                      <ControlLabel>Surname</ControlLabel>
+                      <FormControl placeholder="text" type="text" name="surname" onChange={e => { this.setState({ surname: e.target.value }) }} />
+                    </FormGroup>
+                    <Button
+                      bsStyle="info"
+                      type="submit"
+                      fill>
+                      Submit
+                    </Button>
+                  </form>
                 }
               />
             </Col>

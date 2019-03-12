@@ -50,22 +50,42 @@ const headercolumn = [
   }
 ]
 
-const selectOptions1 = [
-  { value: "b1", label: "B1 อาเขต - ครูบาฯ" },
-  { value: "b2", label: "B2 อาเขต - สนามบิน" },
-  { value: "b3", label: "B3 อาเขต - ศูนย์ราชการ" }
-]
-
 class CallCenter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messages: []
+      messages: [],
+      data: [],
+      driverinfo: [],
+      datainfo: {
+        name: '',
+        receivepoint: '',
+        deliverypoint: ''
+      }
     }
   };
-  showData = (e) => {
-    console.log(e);
+  showData = (id) => {
+    const { messages } = this.state
+    let datauser = messages.find(key => key.id === id)
+    this.setState({
+      datainfo: datauser
+    })
+  }
+  addInformation = (e) => {
+    e.preventDefault();
+    const { datainfo } = this.state
+    const information = {
+      name: datainfo.name,
+      receivepoint: datainfo.receivepoint,
+      deliverypoint: datainfo.deliverypoint,
+      driver: this.state.driver.label,
+      price: this.state.price
+    }
+    console.log(information)
     
+  }
+  clearValue = () => {
+
   }
   componentDidMount() {
     const rootRef = firebase.database().ref().child('react');
@@ -77,6 +97,7 @@ class CallCenter extends Component {
           name: value.name,
           receivepoint: value.receive,
           deliverypoint: value.delivery,
+          status: value.status,
           actions: (
             <div>
               <ButtonHero
@@ -84,18 +105,36 @@ class CallCenter extends Component {
                 label="Info"
                 width="100%"
                 height="30px"
-                onClick={()=> this.showData(key)}
+                onClick={() => this.showData(key)}
               />
             </div>
           )
         }
-      })
+      }).filter(message => message.status == 0)
       this.setState({
         messages: messageArray
       });
     });
+    const driverRef = firebase.database().ref().child('driver');
+    driverRef.on('value', snap => {
+      const driverObj = snap.val();
+      const driverArray = Object.entries(driverObj).map(([key, value]) => {
+        return {
+          value: key,
+          label: value.name + ' ' + value.surname
+        }
+      })
+      this.setState({
+        driverinfo: driverArray
+      });
+    });
   }
   render() {
+    const {
+      datainfo,
+      messages,
+      driverinfo
+    } = this.state
     return (
       <div className="main-content">
         <Grid fluid>
@@ -107,7 +146,7 @@ class CallCenter extends Component {
                 content={
                   <div>
                     <ReactTable
-                      data={this.state.messages}
+                      data={messages}
                       filterable
                       columns={headercolumn}
                       defaultPageSize={5}
@@ -133,35 +172,35 @@ class CallCenter extends Component {
                 title="Form"
                 icon="pe-7s-note2"
                 content={
-                  <Form horizontal>
+                  <Form horizontal onSubmit={this.addInformation} >
                     <FormGroup>
                       <ControlLabel className="col-md-3">ชื่อ</ControlLabel>
                       <Col md={9}>
-                        <FormControl placeholder="" type="text" />
+                        <FormControl placeholder="" type="text" value={datainfo.name} />
                       </Col>
                     </FormGroup>
                     <FormGroup>
                       <ControlLabel className="col-md-3">จุดรับ</ControlLabel>
                       <Col md={9}>
-                        <FormControl placeholder="" type="text" />
+                        <FormControl placeholder="" type="text" value={datainfo.receivepoint} />
                       </Col>
                     </FormGroup>
                     <FormGroup>
                       <ControlLabel className="col-md-3">จุดส่ง</ControlLabel>
                       <Col md={9}>
-                        <FormControl placeholder="" type="text" />
+                        <FormControl placeholder="" type="text" value={datainfo.deliverypoint} />
                       </Col>
                     </FormGroup>
                     <FormGroup>
                       <ControlLabel className="col-md-3">คนขับ</ControlLabel>
                       <Col md={9}>
                         <Select
-                          placeholder="รถเทศบาลเชียงใหม่"
-                          name="station1"
-                          value={this.state.station1}
-                          options={selectOptions1}
+                          placeholder="คนขับรถ"
+                          name="driver"
+                          value={this.state.driver}
+                          options={driverinfo}
                           onChange={value =>
-                            this.setState({ station1: value })
+                            this.setState({ driver: value })
                           }
                         />
                       </Col>
@@ -169,12 +208,12 @@ class CallCenter extends Component {
                     <FormGroup>
                       <ControlLabel className="col-md-3">ราคา</ControlLabel>
                       <Col md={9}>
-                        <FormControl placeholder="" type="text" />
+                        <FormControl placeholder="บาท" type="text" name="price" onChange={e => { this.setState({ price: e.target.value }) }} />
                       </Col>
                     </FormGroup>
                     <FormGroup>
                       <Col md={9} mdOffset={3}>
-                        <Button bsStyle="info" fill>
+                        <Button bsStyle="info" fill type='submit' >
                           ส่งงาน
                         </Button>
                       </Col>
