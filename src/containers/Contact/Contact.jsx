@@ -1,28 +1,37 @@
 import React, { Component } from "react";
-import Button from "components/CustomButton/CustomButton.jsx";
 import {
   Grid,
   Col,
   Row,
-  ControlLabel,
-  FormControl,
-  FormGroup,
 } from "react-bootstrap";
-import Checkbox from "components/CustomCheckbox/CustomCheckbox.jsx";
 import * as firebase from 'firebase'
-import {
-  GoogleMap,
-  ButtonHero
-} from 'components'
-// react component used to create charts
 
 // react components used to create a SVG / Vector map
 
 import Card from "components/Card/Card.jsx";
 
 class Contact extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      contacts: []
+    }
+  }
   componentDidMount() {
-
+    const rootRef = firebase.database().ref().child('contact');
+    rootRef.on('value', snap => {
+      const contactObj = snap.val();
+      const contactArray = Object.entries(contactObj).map(([key, value]) => {
+        return {
+          id: key,
+          company: value.company,
+          tel: value.tel,
+        }
+      })
+      this.setState({
+        contacts: contactArray
+      });
+    });
   }
   render() {
     return (
@@ -35,9 +44,17 @@ class Contact extends Component {
                 icon="pe-7s-stopwatch"
                 // category="All products that were shipped"
                 content={
-                  <div>
-                    content
-                  </div>
+                  this.state.contacts.map(data => {
+                    return (
+                      <h4>
+                        <span style={{ paddingRight: '10px' }}>{data.company}</span>
+                        <span>{data.tel}</span>
+                      </h4>
+                    )
+                  })
+                  // <h4>
+                  //   content
+                  // </h4>
                 }
               />
             </Col>

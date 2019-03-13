@@ -165,7 +165,8 @@ class ValidationForms extends Component {
         })
       : this.setState({ passwordErrorLogin: null });
   }
-  handleTypeValidation() {
+  handleTypeValidation(e) {
+    e.preventDefault();    
     var emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     emailRex.test(this.state.type_email) === false
       ? this.setState({

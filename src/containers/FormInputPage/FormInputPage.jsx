@@ -43,6 +43,7 @@ class FormInputPage extends Component {
       });
     });
   }
+  //add Data
   addMessage = (e) => {
     // console.log(this.state.password);
     e.preventDefault();
@@ -50,20 +51,12 @@ class FormInputPage extends Component {
       name: this.state.name,
       receive: this.state.receive,
       delivery: this.state.delivery,
-      status: 0
+      status: 'enabled'
     }
     // console.log(dataInfo)
     firebase.database().ref('react').push(dataInfo);
 
     this.clearValue();
-  }
-  deleteMessage = (id) => {
-    firebase.database().ref().child('react/' + id).remove();
-  }
-  clearValue = () => {
-    this.state.name = '',
-    this.state.receive = '',
-    this.state.delivery = ''
   }
   addDriver = (e) => {
     console.log(e);
@@ -75,6 +68,28 @@ class FormInputPage extends Component {
     console.log(dataDriver);
     firebase.database().ref('driver').push(dataDriver);
   }
+  deleteMessage = (id) => {
+    firebase.database().ref().child('react/' + id).remove();
+  }
+  addContact = (e) => {
+    // console.log(this.state.password);
+    e.preventDefault();
+    var dataContact = {
+      company: this.state.company,
+      tel: this.state.tel,
+    }
+    // console.log(dataInfo)
+    firebase.database().ref('contact').push(dataContact);
+
+    this.clearValue();
+  }
+  //-----------------------------------------------------------------
+  clearValue = () => {
+    this.state.name = '',
+      this.state.receive = '',
+      this.state.delivery = ''
+  }
+
   render() {
     return (
       <div className="main-content">
@@ -169,6 +184,35 @@ class FormInputPage extends Component {
                       Submit
                     </Button>
                   </form>
+                }
+              />
+            </Col>
+            <Col md={6}>
+              <Card
+                title="contact Form"
+                icon="pe-7s-stopwatch"
+                // category="All products that were shipped"
+                content={
+                  <div>
+                    <form onSubmit={this.addContact} >
+                      <FormGroup>
+                        <ControlLabel>company</ControlLabel>
+                        <FormControl placeholder="text" type="text" name="company" onChange={e => { this.setState({ company: e.target.value }) }} />
+                      </FormGroup>
+                      <FormGroup>
+                        <FormGroup>
+                          <ControlLabel>tel.</ControlLabel>
+                          <FormControl placeholder="text" type="text" name="tel" onChange={e => { this.setState({ tel: e.target.value }) }} />
+                        </FormGroup>
+                      </FormGroup>
+                      <Button
+                        bsStyle="info"
+                        type="submit"
+                        fill>
+                        Submit
+                    </Button>
+                    </form>
+                  </div>
                 }
               />
             </Col>

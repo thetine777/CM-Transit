@@ -61,6 +61,19 @@ class CallCenter extends Component {
         name: '',
         receivepoint: '',
         deliverypoint: ''
+      },
+      //Error_type
+      name_error: '',
+      receivepoint_error: '',
+      deliverypoint_error: '',
+      price_error: '',
+      //data information
+      information: {
+        name: '',
+        receivepoint: '',
+        deliverypoint: '',
+        driver: '',
+        price: ''
       }
     }
   };
@@ -73,19 +86,63 @@ class CallCenter extends Component {
   }
   addInformation = (e) => {
     e.preventDefault();
-    const { datainfo } = this.state
-    const information = {
-      name: datainfo.name,
-      receivepoint: datainfo.receivepoint,
-      deliverypoint: datainfo.deliverypoint,
+    this.state.name === "" || this.state.name === null
+      ? this.setState({
+        name_error: (
+          <small className="text-danger">กรุณากรอกชื่อ</small>
+        )
+      })
+      : this.setState({ name_error: '' });
+    this.state.receivepoint === "" || this.state.receivepoint === null
+      ? this.setState({
+        receivepoint_error: (
+          <small className="text-danger">กรุณากรอกจุดรับ</small>
+        )
+      })
+      : this.setState({ receivepoint_error: '' });
+    this.state.deliverypoint === '' || this.state.deliverypoint === null
+      ? this.setState({
+        deliverypoint_error: (
+          <small className="text-danger">กรุณากรอกจุดส่ง</small>
+        )
+      })
+      : this.setState({ deliverypoint_error: '' });
+    this.state.price === '' || this.state.price === null
+      ? this.setState({
+        price_error: (
+          <small className="text-danger">กรุณากรอกราคา</small>
+        )
+      })
+      : this.setState({ price_error: '' });
+
+    let information = {
+      name: this.state.datainfo.name,
+      receivepoint: this.state.datainfo.receivepoint,
+      deliverypoint: this.state.datainfo.deliverypoint,
       driver: this.state.driver.label,
       price: this.state.price
     }
-    console.log(information)
-    
+    console.log(information);
+    // const { datainfo } = this.state
+    // const information = {
+    //   name: datainfo.name,
+    //   receivepoint: datainfo.receivepoint,
+    //   deliverypoint: datainfo.deliverypoint,
+    //   driver: this.state.driver.value,
+    //   price: this.state.price
+    // }
+    // console.log(information)
+
   }
   clearValue = () => {
 
+  }
+  handleOnchange = (field, value) => {
+    let datainfo = this.state.datainfo
+    datainfo[field] = value
+    this.setState({
+      datainfo
+    })
   }
   componentDidMount() {
     const rootRef = firebase.database().ref().child('react');
@@ -110,7 +167,7 @@ class CallCenter extends Component {
             </div>
           )
         }
-      }).filter(message => message.status == 0)
+      }).filter(message => message.status == 'enabled')
       this.setState({
         messages: messageArray
       });
@@ -128,6 +185,7 @@ class CallCenter extends Component {
         driverinfo: driverArray
       });
     });
+    this.setState({ inputValue: this.props.name });
   }
   render() {
     const {
@@ -157,15 +215,6 @@ class CallCenter extends Component {
                   </div>
                 }
               />
-              <Card
-                title="Map"
-                icon="pe-7s-map-marker"
-                content={
-                  <GoogleMap
-                    theme_standard
-                  />
-                }
-              />
             </Col>
             <Col md={5}>
               <Card
@@ -176,19 +225,73 @@ class CallCenter extends Component {
                     <FormGroup>
                       <ControlLabel className="col-md-3">ชื่อ</ControlLabel>
                       <Col md={9}>
-                        <FormControl placeholder="" type="text" value={datainfo.name} />
+                        <FormControl
+                          placeholder=""
+                          type="text"
+                          value={datainfo.name}
+                          name="name"
+                          onChange={event => {
+                            this.handleOnchange('name', event.target.value)
+                            event.target.value === "" || event.target.value === null
+                              ? this.setState({
+                                name_error: (
+                                  <small className="text-danger">
+                                    กรุณากรอกชื่อ
+                                      </small>
+                                )
+                              })
+                              : this.setState({ name_error: null });
+                          }}
+                        />
+                        {this.state.name_error}
                       </Col>
                     </FormGroup>
                     <FormGroup>
                       <ControlLabel className="col-md-3">จุดรับ</ControlLabel>
                       <Col md={9}>
-                        <FormControl placeholder="" type="text" value={datainfo.receivepoint} />
+                        <FormControl
+                          placeholder=""
+                          type="text"
+                          value={datainfo.receivepoint}
+                          name="receivepoint"
+                          onChange={event => {
+                            this.handleOnchange('receivepoint', event.target.value)
+                            event.target.value === ""
+                              ? this.setState({
+                                receivepoint_error: (
+                                  <small className="text-danger">
+                                    กรุณากรอกจุดรับ
+                                    </small>
+                                )
+                              })
+                              : this.setState({ receivepoint_error: null });
+                          }}
+                        />
+                        {this.state.receivepoint_error}
                       </Col>
                     </FormGroup>
                     <FormGroup>
                       <ControlLabel className="col-md-3">จุดส่ง</ControlLabel>
                       <Col md={9}>
-                        <FormControl placeholder="" type="text" value={datainfo.deliverypoint} />
+                        <FormControl
+                          placeholder=""
+                          type="text"
+                          value={datainfo.deliverypoint}
+                          name="deliverypoint"
+                          onChange={event => {
+                            this.handleOnchange('deliverypoint', event.target.value)
+                            event.target.value === ""
+                              ? this.setState({
+                                deliverypoint_error: (
+                                  <small className="text-danger">
+                                    กรุณากรอกจุดส่ง
+                                    </small>
+                                )
+                              })
+                              : this.setState({ deliverypoint_error: null });
+                          }}
+                        />
+                        {this.state.deliverypoint_error}
                       </Col>
                     </FormGroup>
                     <FormGroup>
@@ -208,17 +311,54 @@ class CallCenter extends Component {
                     <FormGroup>
                       <ControlLabel className="col-md-3">ราคา</ControlLabel>
                       <Col md={9}>
-                        <FormControl placeholder="บาท" type="text" name="price" onChange={e => { this.setState({ price: e.target.value }) }} />
+                        <FormControl
+                          placeholder="บาท"
+                          type="text"
+                          name="price"
+                          onChange={event => {
+                            this.setState({ price: event.target.value })
+                            event.target.value === ""
+                              ? this.setState({
+                                price_error: (
+                                  <small className="text-danger">
+                                    กรุณากรอกราคา
+                                    </small>
+                                )
+                              })
+                              : this.setState({ price_error: null });
+                          }}
+                        />
+                        {this.state.price_error}
                       </Col>
                     </FormGroup>
                     <FormGroup>
                       <Col md={9} mdOffset={3}>
-                        <Button bsStyle="info" fill type='submit' >
+                        <Button
+                          disabled={
+                            this.state.name_error ||
+                            this.state.receivepoint_error ||
+                            this.state.deliverypoint_error ||
+                            this.state.price_error
+                          }
+                          bsStyle="info"
+                          fill
+                          type='submit' >
                           ส่งงาน
                         </Button>
                       </Col>
                     </FormGroup>
                   </Form>
+                }
+              />
+            </Col>
+            <Col md={12}>
+              <Card
+                title="Map"
+                icon="pe-7s-map-marker"
+                content={
+                  <GoogleMap
+                    theme_standard
+                  />
                 }
               />
             </Col>
