@@ -7,7 +7,7 @@ import {
   ControlLabel,
   FormControl
 } from "react-bootstrap";
-
+import * as firebase from 'firebase'
 import Card from "components/Card/Card.jsx";
 
 import Button from "components/CustomButton/CustomButton.jsx";
@@ -17,12 +17,13 @@ class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cardHidden: true
+      cardHidden: true,
     };
   }
+  
   componentDidMount() {
     setTimeout(
-      function() {
+      function () {
         this.setState({ cardHidden: false });
       }.bind(this),
       700

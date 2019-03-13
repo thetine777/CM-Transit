@@ -216,6 +216,28 @@ class FormInputPage extends Component {
                 }
               />
             </Col>
+            <Col md={6}>
+              <Card
+                title="images Form"
+                icon="pe-7s-stopwatch"
+                content={
+                  <div>
+                    <form >
+                      <FormGroup>
+                        <ControlLabel>image</ControlLabel>
+                        <FormControl placeholder="text" type="file" name="image"  />
+                      </FormGroup>
+                      <Button
+                        bsStyle="info"
+                        type="submit"
+                        fill>
+                        Submit
+                    </Button>
+                    </form>
+                  </div>
+                }
+              />
+            </Col>
           </Row>
         </Grid>
       </div>
