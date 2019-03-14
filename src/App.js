@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route } from "react-router-dom"
 import indexRoutes from "./routes/index.jsx"
+import adminRoute from "./routes/admin.jsx"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./assets/sass/light-bootstrap-dashboard.css?v=1.1.1"
 import "./assets/css/demo.css"
@@ -16,6 +17,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             user: {},
+            pages: true
         };
     }
     authListener() {
@@ -23,10 +25,10 @@ class App extends React.Component {
             console.log(user);
             if (user) {
                 this.setState({ user });
-                localStorage.setItem('user', user.uid);
+                // localStorage.setItem('user', user.uid);
             } else {
                 this.setState({ user: null });
-                localStorage.removeItem('user');
+                // localStorage.removeItem('user');
             }
         });
     }
@@ -34,14 +36,25 @@ class App extends React.Component {
         this.authListener();
     }
     render() {
-        return (
-            <div>
-                {indexRoutes.map((prop, key) => {
-                    return <Route exact={prop.exact} path={prop.path} component={prop.component} key={key} />
-                })}
-                {this.state.user ? ( <CallCenter/>) : (<LoginPage />)}
-            </div>
-        )
+        if (this.state.user) {
+            return (
+                <div>
+                    {adminRoute.map((prop, key) => {
+                        return <Route exact={prop.exact} path={prop.path} component={prop.component} key={key} />
+                    })}
+                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                    {indexRoutes.map((prop, key) => {
+                        return <Route exact={prop.exact} path={prop.path} component={prop.component} key={key} />
+                    })
+                    }
+                </div>
+            )
+        }
     }
 }
 

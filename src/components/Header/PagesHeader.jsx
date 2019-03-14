@@ -49,13 +49,13 @@ class PagesHeader extends Component {
                 <p>Dashboard</p>
               </NavLink>
             </li> */}
-            <li>
+            {/* <li>
               <NavLink to={"/admin/driver/info"} className="nav-link">
                 <i className="pe-7s-car" />
                 <p>Driver</p>
               </NavLink>
-            </li> 
-            {/* <li className={this.activeRoute("login-page")}>
+            </li>  */}
+            <li className={this.activeRoute("login-page")}>
               <NavLink to={"/pages/login-page"} className="nav-link">
                 <i className="fa fa-drivers-license-o" />
                 <p>Login</p>
@@ -72,7 +72,7 @@ class PagesHeader extends Component {
                 <i className="fa fa-lock" />
                 <p>Lock Screen</p>
               </NavLink>
-            </li> */}
+            </li>
           </ul>
         </Navbar.Collapse>
       </Navbar>

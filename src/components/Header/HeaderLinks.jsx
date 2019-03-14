@@ -10,8 +10,16 @@ import {
   FormControl,
   InputGroup
 } from "react-bootstrap";
+import * as firebase from 'firebase'
 
 class HeaderLinks extends Component {
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
+  logout() {
+    firebase.auth().signOut();
+  }
   render() {
     return (
       <div>
@@ -52,7 +60,7 @@ class HeaderLinks extends Component {
             <MenuItem eventKey={2.5}>Another action</MenuItem>
           </NavDropdown> */}
           <NavDropdown
-            eventKey={3}
+            eventKey={1}
             title={
               <div>
                 <i className="fa fa-bell-o" />
@@ -66,14 +74,14 @@ class HeaderLinks extends Component {
             noCaret
             id="basic-nav-dropdown-2"
           >
-            <MenuItem eventKey={3.1}>Notification 1</MenuItem>
-            <MenuItem eventKey={3.2}>Notification 2</MenuItem>
-            <MenuItem eventKey={3.3}>Notification 3</MenuItem>
-            <MenuItem eventKey={3.4}>Notification 4</MenuItem>
-            <MenuItem eventKey={3.5}>Another notifications</MenuItem>
+            <MenuItem eventKey={1.1}>Notification 1</MenuItem>
+            <MenuItem eventKey={1.2}>Notification 2</MenuItem>
+            <MenuItem eventKey={1.3}>Notification 3</MenuItem>
+            <MenuItem eventKey={1.4}>Notification 4</MenuItem>
+            <MenuItem eventKey={1.5}>Another notifications</MenuItem>
           </NavDropdown>
           <NavDropdown
-            eventKey={4}
+            eventKey={2}
             title={
               <div>
                 <i className="fa fa-list" />
@@ -100,9 +108,9 @@ class HeaderLinks extends Component {
             <MenuItem eventKey={4.4}>
               <i className="pe-7s-lock" /> Lock Screen
             </MenuItem> */}
-            <MenuItem eventKey={4.5}>
-              <NavLink to={"/pages/login-page"} className="nav-link">
-                <div className="text-danger">
+            <MenuItem eventKey={2.1}>
+              <NavLink to={"/"} className="nav-link">
+                <div className="text-danger" onClick={this.logout}>
                   <i className="pe-7s-close-circle" /> Log out
               </div>
               </NavLink>

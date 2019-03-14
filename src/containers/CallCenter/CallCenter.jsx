@@ -86,35 +86,6 @@ class CallCenter extends Component {
   }
   addInformation = (e) => {
     e.preventDefault();
-    this.state.name === "" || this.state.name === null
-      ? this.setState({
-        name_error: (
-          <small className="text-danger">กรุณากรอกชื่อ</small>
-        )
-      })
-      : this.setState({ name_error: '' });
-    this.state.receivepoint === "" || this.state.receivepoint === null
-      ? this.setState({
-        receivepoint_error: (
-          <small className="text-danger">กรุณากรอกจุดรับ</small>
-        )
-      })
-      : this.setState({ receivepoint_error: '' });
-    this.state.deliverypoint === '' || this.state.deliverypoint === null
-      ? this.setState({
-        deliverypoint_error: (
-          <small className="text-danger">กรุณากรอกจุดส่ง</small>
-        )
-      })
-      : this.setState({ deliverypoint_error: '' });
-    this.state.price === '' || this.state.price === null
-      ? this.setState({
-        price_error: (
-          <small className="text-danger">กรุณากรอกราคา</small>
-        )
-      })
-      : this.setState({ price_error: '' });
-
     let information = {
       name: this.state.datainfo.name,
       receivepoint: this.state.datainfo.receivepoint,
@@ -122,6 +93,38 @@ class CallCenter extends Component {
       driver: this.state.driver.label,
       price: this.state.price
     }
+    this.state.datainfo.name === "" || this.state.datainfo.name === null
+      ? this.setState({
+        name_error: (
+          <small className="text-danger">กรุณากรอกชื่อ</small>
+        )
+      })
+      : this.setState({ name_error: '' });
+    this.state.datainfo.receivepoint === "" || this.state.datainfo.receivepoint === null
+      ? this.setState({
+        receivepoint_error: (
+          <small className="text-danger">กรุณากรอกจุดรับ</small>
+        )
+      })
+      : this.setState({ receivepoint_error: '' });
+    this.state.datainfo.deliverypoint === '' || this.state.datainfo.deliverypoint === null
+      ? this.setState({
+        deliverypoint_error: (
+          <small className="text-danger">กรุณากรอกจุดส่ง</small>
+        )
+      })
+      : this.setState({ deliverypoint_error: '' });
+    this.state.datainfo.price === '' || this.state.datainfo.price === null
+      ? this.setState({
+        price_error: (
+          <small className="text-danger">กรุณากรอกราคา</small>
+        )
+      })
+      : this.setState({ price_error: '' });
+    if (information.name && information.receivepoint && information.deliverypoint && information.driver && information.price) {
+      console.log('have text');
+    }
+
     console.log(information);
     // const { datainfo } = this.state
     // const information = {
@@ -298,6 +301,7 @@ class CallCenter extends Component {
                       <ControlLabel className="col-md-3">คนขับ</ControlLabel>
                       <Col md={9}>
                         <Select
+                          required
                           placeholder="คนขับรถ"
                           name="driver"
                           value={this.state.driver}
@@ -334,12 +338,12 @@ class CallCenter extends Component {
                     <FormGroup>
                       <Col md={9} mdOffset={3}>
                         <Button
-                          disabled={
-                            this.state.name_error ||
-                            this.state.receivepoint_error ||
-                            this.state.deliverypoint_error ||
-                            this.state.price_error
-                          }
+                          // disabled={
+                          //   this.state.name_error ||
+                          //   this.state.receivepoint_error ||
+                          //   this.state.deliverypoint_error ||
+                          //   this.state.price_error
+                          // }
                           bsStyle="info"
                           fill
                           type='submit' >
