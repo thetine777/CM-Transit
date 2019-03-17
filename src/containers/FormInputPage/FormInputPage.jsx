@@ -83,6 +83,11 @@ class FormInputPage extends Component {
 
     this.clearValue();
   }
+  addImage = (e) => {
+    e.preventDefault();
+    var image = this.state.image
+    firebase.database().ref('').push(image);
+  }
   //-----------------------------------------------------------------
   clearValue = () => {
     this.state.name = '',
@@ -222,10 +227,14 @@ class FormInputPage extends Component {
                 icon="pe-7s-stopwatch"
                 content={
                   <div>
-                    <form >
+                    <form onSubmit={this.addImage}>
                       <FormGroup>
                         <ControlLabel>image</ControlLabel>
-                        <FormControl placeholder="text" type="file" name="image"  />
+                        <FormControl placeholder="text" type="file" name="image" onChange={(event) => {
+                          this.setState({
+                            image: event.target.value
+                          });
+                        }} />
                       </FormGroup>
                       <Button
                         bsStyle="info"

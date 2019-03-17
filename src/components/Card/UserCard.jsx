@@ -5,6 +5,7 @@ import {
   Row
 } from "react-bootstrap";
 import styled from "styled-components"
+import user from 'assets/img/icon/user.png'
 
 export const UserCardStyled = styled.div.attrs({
 
@@ -25,20 +26,22 @@ export class UserCard extends Component {
       latitude,
       longitude,
       station,
-      estimate
+      estimate,
+      bgImage,
+      avatar
     } = this.props
     return (
       <UserCardStyled>
         <div className="card card-user">
           <div className="image">
-            <img src={this.props.bgImage} alt="..." />
+            <img src={bgImage} alt="..." />
           </div>
           <div className="content">
             <div className="author">
               <a href="#pablo">
                 <img
                   className="avatar border-gray"
-                  src={this.props.avatar}
+                  src={avatar}
                   alt="..."
                 />
                 <h4 className="title">

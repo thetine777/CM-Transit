@@ -1,24 +1,16 @@
 import React, { Component } from "react";
-import Button from "components/CustomButton/CustomButton.jsx";
 import {
   Grid,
   Col,
   Row,
-  ControlLabel,
-  FormControl,
-  FormGroup,
 } from "react-bootstrap";
-import Checkbox from "components/CustomCheckbox/CustomCheckbox.jsx";
-import * as firebase from 'firebase'
-import {
-  GoogleMap,
-  ButtonHero
-} from 'components'
+
 // react component used to create charts
 
 // react components used to create a SVG / Vector map
-
 import Card from "components/Card/Card.jsx";
+
+
 
 class RouteandTime extends Component {
   componentDidMount() {
@@ -36,7 +28,15 @@ class RouteandTime extends Component {
                 // category="All products that were shipped"
                 content={
                   <div>
-                    content
+                    <figure style={{ heigth: 'auto' }}>
+                      <img style={{ width: '100%' }} src='https://firebasestorage.googleapis.com/v0/b/test-96162.appspot.com/o/minibus.jpg?alt=media&token=d650a855-a39a-4def-9795-ba0e7154bde5' />
+                    </figure>
+                    <figure style={{ heigth: 'auto' }}>
+                      <img style={{ width: '100%' }} src='https://firebasestorage.googleapis.com/v0/b/test-96162.appspot.com/o/rtc.jpg?alt=media&token=dad8dc90-6fd3-4cb0-8cc4-df25f9c4cdac' />
+                    </figure>
+                    <figure style={{ heigth: 'auto' }}>
+                      <img style={{ width: '100%' }} src='https://firebasestorage.googleapis.com/v0/b/test-96162.appspot.com/o/kwanviang.jpg?alt=media&token=3fa674f0-5b95-4ee3-9358-9b64f2c0c3c6' />
+                    </figure>
                   </div>
                 }
               />

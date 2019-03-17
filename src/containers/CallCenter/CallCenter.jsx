@@ -9,7 +9,7 @@ import {
   Form,
   Checkbox
 } from "react-bootstrap";
-import UserCard from "components/Card/UserCard.jsx";
+import { confirmAlert } from 'react-confirm-alert';
 import ReactTable from "react-table";
 import * as firebase from 'firebase'
 import Button from "components/CustomButton/CustomButton.jsx";
@@ -74,7 +74,8 @@ class CallCenter extends Component {
         deliverypoint: '',
         driver: '',
         price: ''
-      }
+      },
+      price: ''
     }
   };
   showData = (id) => {
@@ -86,35 +87,37 @@ class CallCenter extends Component {
   }
   addInformation = (e) => {
     e.preventDefault();
+    const status = 'disabled'
     let information = {
+      id: this.state.datainfo.id,
       name: this.state.datainfo.name,
       receivepoint: this.state.datainfo.receivepoint,
       deliverypoint: this.state.datainfo.deliverypoint,
       driver: this.state.driver.label,
       price: this.state.price
     }
-    this.state.datainfo.name === "" || this.state.datainfo.name === null
+    information.name === "" || information.name === null
       ? this.setState({
         name_error: (
           <small className="text-danger">กรุณากรอกชื่อ</small>
         )
       })
       : this.setState({ name_error: '' });
-    this.state.datainfo.receivepoint === "" || this.state.datainfo.receivepoint === null
+    information.receivepoint === "" || information.receivepoint === null
       ? this.setState({
         receivepoint_error: (
           <small className="text-danger">กรุณากรอกจุดรับ</small>
         )
       })
       : this.setState({ receivepoint_error: '' });
-    this.state.datainfo.deliverypoint === '' || this.state.datainfo.deliverypoint === null
+    information.deliverypoint === '' || information.deliverypoint === null
       ? this.setState({
         deliverypoint_error: (
           <small className="text-danger">กรุณากรอกจุดส่ง</small>
         )
       })
       : this.setState({ deliverypoint_error: '' });
-    this.state.datainfo.price === '' || this.state.datainfo.price === null
+    information.price === '' || information.price === null
       ? this.setState({
         price_error: (
           <small className="text-danger">กรุณากรอกราคา</small>
@@ -122,23 +125,27 @@ class CallCenter extends Component {
       })
       : this.setState({ price_error: '' });
     if (information.name && information.receivepoint && information.deliverypoint && information.driver && information.price) {
-      console.log('have text');
+      alert('Send Already!!');
+      firebase.database().ref('information').push(information);
+      firebase.database().ref('react/' + information.id).set({
+        name: information.name,
+        receive: information.receivepoint,
+        delivery: information.deliverypoint,
+        status: status
+      });
+      this.clearValue();
     }
-
-    console.log(information);
-    // const { datainfo } = this.state
-    // const information = {
-    //   name: datainfo.name,
-    //   receivepoint: datainfo.receivepoint,
-    //   deliverypoint: datainfo.deliverypoint,
-    //   driver: this.state.driver.value,
-    //   price: this.state.price
-    // }
-    // console.log(information)
-
   }
   clearValue = () => {
-
+    const {
+      driver,
+      datainfo,
+    } = this.state
+    driver.label = ''
+    datainfo.name = ''
+    datainfo.receivepoint = ''
+    datainfo.deliverypoint = ''
+    this.state.price = ''
   }
   handleOnchange = (field, value) => {
     let datainfo = this.state.datainfo
@@ -259,7 +266,7 @@ class CallCenter extends Component {
                           name="receivepoint"
                           onChange={event => {
                             this.handleOnchange('receivepoint', event.target.value)
-                            event.target.value === ""
+                            event.target.value === "" || event.target.value === null
                               ? this.setState({
                                 receivepoint_error: (
                                   <small className="text-danger">
@@ -283,7 +290,7 @@ class CallCenter extends Component {
                           name="deliverypoint"
                           onChange={event => {
                             this.handleOnchange('deliverypoint', event.target.value)
-                            event.target.value === ""
+                            event.target.value === "" || event.target.value === null
                               ? this.setState({
                                 deliverypoint_error: (
                                   <small className="text-danger">
@@ -319,6 +326,7 @@ class CallCenter extends Component {
                           placeholder="บาท"
                           type="text"
                           name="price"
+                          value={this.state.price}
                           onChange={event => {
                             this.setState({ price: event.target.value })
                             event.target.value === ""

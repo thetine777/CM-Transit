@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { toast } from 'react-toastify';
 import {
   Grid,
   Row,
@@ -38,6 +39,7 @@ class LoginPage extends Component {
       if (error) {
         this.setState({
           user_error: '*** อีเมลหรือรหัสผ่านไม่ถูกต้อง'
+
         });
       }
     });
